@@ -104,24 +104,27 @@ function module:onConnect(keys, callback)
     local user = game:GetService("Players").LocalPlayer
     trigger.MouseButton1Click:Connect(function()
         self:TweenState(trigger, "pressed")
+        local Sub, Key = false, ""
         if not ignoreClose then module.SETTINGS.attempts = module.SETTINGS.attempts + 1 if module.SETTINGS.attempts >= module.SETTINGS.closeAfterX then return gui:Destroy(); end  end
         for _, v in next, keys do
             if v.Id == user.UserId then
+                Sub = v.Subscription
+                Key = v.Key
                 if string.lower(v.Key) == string.lower(textbox.Text) then
                     if v.Subscription then
                         self:TweenState(textbox, "successfull");
                         task.wait(0.55)
                         gui:Destroy()
-                        return callback(user, v.Subscription)
+                        return callback(user, Sub)
                     end
                 else
                     self:TweenState(textbox, "unsuccessfull")
-                    callback(user, v.Subscription)
+                    callback(user, Sub)
                     continue
                 end
             else
                 self:TweenState(textbox, "unsuccessfull")
-                callback(user, v.Subscription)
+                callback(user, Sub)
                 continue
             end
         end
