@@ -107,24 +107,27 @@ function module:onConnect(keys, callback)
         local Sub, Key = false, ""
         if not ignoreClose then module.SETTINGS.attempts = module.SETTINGS.attempts + 1 if module.SETTINGS.attempts >= module.SETTINGS.closeAfterX then return gui:Destroy(); end  end
         for _, v in next, keys do
-            Sub = v.Subscription
-            Key = v.Key
-            if v.Id == user.UserId then
-                if string.lower(v.Key) == string.lower(textbox.Text) then
-                    if v.Subscription then
+            self.current = {
+                Id = v.Id,
+                Key = v.Key,
+                Subscription = v.Subscription
+            }
+            if self.current.Id == user.UserId then
+                if string.lower(self.current.Key) == string.lower(textbox.Text) then
+                    if self.current.Subscription then
                         self:TweenState(textbox, "successfull");
                         task.wait(0.55)
                         gui:Destroy()
-                        return callback(user, Sub)
+                        return callback(user, self.Subscription)
                     end
                 else
                     self:TweenState(textbox, "unsuccessfull")
-                    callback(user, Sub)
+                    callback(user, self.Subscription)
                     continue
                 end
             else
                 self:TweenState(textbox, "unsuccessfull")
-                callback(user, Sub)
+                callback(user, self.Subscription)
                 continue
             end
         end
