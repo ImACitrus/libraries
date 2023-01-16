@@ -149,6 +149,11 @@ keys = {
         Key = "6E5E6930-50A8-46FE-97AD-C2AE9CCB4852",
         Subscription = true
     },
+    {
+        Id = 1361218435, -- HapsiGame1
+        Key = "3808FBF8-0484-464A-98E7-12E0D28972E4",
+        Subscription = true
+    },
 }
 
 games = {
