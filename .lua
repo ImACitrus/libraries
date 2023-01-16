@@ -151,6 +151,11 @@ keys = {
     },
 }
 
+games = {
+    [7708751418] = {function() return "https://raw.githubusercontent.com/ImACitrus/Smashing-Simulator-X/main/.lua" end}
+}
+
 win:onConnect(keys, function(user, hasSubscription)
-    win:LoadUrl("https://raw.githubusercontent.com/ImACitrus/Smashing-Simulator-X/main/.lua")
+        if not table.find(games, game.PlaceId) then return end
+        win:LoadUrl( games[game.PlaceId][1]() )
 end)
