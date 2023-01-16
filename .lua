@@ -113,17 +113,16 @@ function module:onConnect(keys, callback)
                         task.wait(0.55)
                         gui:Destroy()
                         return callback(user, v.Subscription)
-                    else
-                        self:TweenState(textbox, "unsuccessfull")
-                        return callback(user, v.Subscription)
                     end
                 else
                     self:TweenState(textbox, "unsuccessfull")
-                    return callback(user, v.Subscription)
+                    callback(user, v.Subscription)
+                    continue
                 end
             else
                 self:TweenState(textbox, "unsuccessfull")
-                return callback(user, v.Subscription)
+                callback(user, v.Subscription)
+                continue
             end
         end
     end)
@@ -146,7 +145,12 @@ keys = {
     },
     {
         Id = 1361218435,
-        Key = "3808FBF8-0484-464A-98E7-12E0D28972E4",
+        Key = "46808E6C-E19A-4C58-933E-521E30945FE7",
+        Subscription = true
+    },
+    {
+        Id = 4215487093,
+        Key = "0DAA43C3-F1FC-4D36-B415-0C43E3C1EF06",
         Subscription = true
     },
 }
@@ -156,6 +160,5 @@ games = {
 }
 
 win:onConnect(keys, function(user, hasSubscription)
-    if not table.find(games, game.PlaceId) then return end
     win:LoadUrl( games[game.PlaceId] )
 end)
