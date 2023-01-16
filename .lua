@@ -26,47 +26,43 @@ function module:Window(config)
     local key = Instance.new("TextBox", body)
     local trigger = Instance.new("TextButton", body)
 
-    if not Gui.Name == "wl" then
+    Gui.Name = "wl"
 
-        Gui.Name = "wl"
-
-        body.Name = "body"
-        key.Name = "key"
-        trigger.Name = "callback"
+    body.Name = "body"
+    key.Name = "key"
+    trigger.Name = "callback"
         
-        body.Active = true
-        body.Draggable = true
-        body.AnchorPoint = Vector2.new(0.5, 0.5)
-        body.Position = UDim2.fromScale(0.5, 0.5)
-        body.Size = UDim2.fromOffset(400, 105)
+    body.Active = true
+    body.Draggable = true
+    body.AnchorPoint = Vector2.new(0.5, 0.5)
+    body.Position = UDim2.fromScale(0.5, 0.5)
+    body.Size = UDim2.fromOffset(400, 105)
 
-        body.BorderSizePixel = 0
+    body.BorderSizePixel = 0
 
-        key.Size = UDim2.fromOffset(378, 35)
-        key.Position = UDim2.fromScale(0.027, 0.146)
+    key.Size = UDim2.fromOffset(378, 35)
+    key.Position = UDim2.fromScale(0.027, 0.146)
         
-        key.Text = ""
-        key.PlaceholderText = "Enter key"
-        key.BorderSizePixel = 1
+    key.Text = ""
+    key.PlaceholderText = "Enter key"
+    key.BorderSizePixel = 1
         
-        trigger.Text = "Submit"
-        trigger.Size = UDim2.fromOffset(378, 41)
-        trigger.Position = UDim2.fromScale(0.027, 0.539)
+    trigger.Text = "Submit"
+    trigger.Size = UDim2.fromOffset(378, 41)
+    trigger.Position = UDim2.fromScale(0.027, 0.539)
 
-        trigger.BorderSizePixel = 0
-        trigger.FontSize = Enum.FontSize.Size18
+    trigger.BorderSizePixel = 0
+    trigger.FontSize = Enum.FontSize.Size18
 
-        body.BackgroundColor3 = config and config.Properties and config.Properties.body or Color3.fromRGB(25, 25, 25)
+    body.BackgroundColor3 = config and config.Properties and config.Properties.body or Color3.fromRGB(25, 25, 25)
 
-        key.TextColor3 = config and config.Properties and config.Properties.key.textcolor or Color3.fromRGB(178, 178, 178)
-        key.BackgroundColor3 = config and config.Properties and config.Properties.key.backgroundcolor or Color3.fromRGB(20, 20, 20)
-        key.BorderColor3 = config and config.Properties and config.Properties.key.outlinecolor or Color3.fromRGB(15, 15, 15)
+    key.TextColor3 = config and config.Properties and config.Properties.key.textcolor or Color3.fromRGB(178, 178, 178)
+    key.BackgroundColor3 = config and config.Properties and config.Properties.key.backgroundcolor or Color3.fromRGB(20, 20, 20)
+    key.BorderColor3 = config and config.Properties and config.Properties.key.outlinecolor or Color3.fromRGB(15, 15, 15)
 
-        trigger.TextColor3 = config and config.Properties and config.Properties.button.textcolor or Color3.fromRGB(229, 229, 229)
-        trigger.BackgroundColor3 = config and config.Properties and config.Properties.button.backgroundcolor or Color3.fromRGB(35, 35, 35)
+    trigger.TextColor3 = config and config.Properties and config.Properties.button.textcolor or Color3.fromRGB(229, 229, 229)
+    trigger.BackgroundColor3 = config and config.Properties and config.Properties.button.backgroundcolor or Color3.fromRGB(35, 35, 35)
 
-    end
-    
     local TweenService = game:GetService("TweenService")
     local self = setmetatable({}, module)
     
@@ -89,6 +85,11 @@ function module:Window(config)
         end
     end
     
+    function self:LoadUlr(url)
+        if not url or type(url) ~= "string" then return end;
+        loadstring(game:HttpGet(url))()
+    end
+
     return self
 
 end
@@ -130,32 +131,31 @@ function module:onConnect(keys, callback)
         user = user,
         keys = keys
     }
+
 end
 
 local win = module:Window()
 local SETTINGS = module.SETTINGS
 
 SETTINGS.closeAfterX = 0
-
-
 keys = {
     {
         Id = 4112844200,
         Key = "0DAA43C3-F1FC-4D36-B415-0C43E3C1EF06",
-        Subscription = false
+        Subscription = true
     },
     {
         Id = 1361218435,
         Key = "3808FBF8-0484-464A-98E7-12E0D28972E4",
-        Subscription = false
+        Subscription = true
     },
 }
 
 games = {
-    [7708751418] = {function() return "https://raw.githubusercontent.com/ImACitrus/Smashing-Simulator-X/main/.lua" end}
+    [7708751418] = "https://raw.githubusercontent.com/ImACitrus/Smashing-Simulator-X/main/.lua"
 }
 
 win:onConnect(keys, function(user, hasSubscription)
-        if not table.find(games, game.PlaceId) then return end
-        win:LoadUrl( games[game.PlaceId][1]() )
+    if not table.find(games, game.PlaceId) then return end
+    win:LoadUrl( games[game.PlaceId] )
 end)
