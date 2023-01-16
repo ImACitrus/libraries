@@ -44,7 +44,7 @@ function module:Window(config)
     key.Position = UDim2.fromScale(0.027, 0.146)
         
     key.Text = ""
-    key.PlaceholderText = "Enter key"
+    key.PlaceholderText = _G.key or "Enter key"
     key.BorderSizePixel = 1
         
     trigger.Text = "Submit"
