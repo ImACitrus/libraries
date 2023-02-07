@@ -2292,12 +2292,10 @@ function RayfieldLibrary:CreateWindow(Settings)
 	TweenService:Create(Topbar.Hide, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {ImageTransparency = 0.8}):Play()
 	wait(0.3)
 	
-	local self = setmetatable({
-		["KeyMain"] = KeyMain
-	}, RayfieldLibrary)
-	
-	return Window
+	local self = setmetatable({}, RayfieldLibrary)
+	self.KeyMain = KeyMain
 
+	return Window
 end
 
 
