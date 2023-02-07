@@ -2294,10 +2294,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 	
 	local self = setmetatable({
 		["KeyMain"] = KeyMain
-		["Window"] = Window
 	}, RayfieldLibrary)
 	
-	return self
+	return Window
 
 end
 
