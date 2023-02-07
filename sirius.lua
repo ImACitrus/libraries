@@ -16,7 +16,7 @@ local RayfieldFolder = "Rayfield"
 local ConfigurationFolder = RayfieldFolder.."/Configurations"
 local ConfigurationExtension = ".rfld"
 
-
+local unlisted = {}
 
 local RayfieldLibrary = {
 	Flags = {},
@@ -2292,8 +2292,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 	TweenService:Create(Topbar.Hide, TweenInfo.new(0.7, Enum.EasingStyle.Quint), {ImageTransparency = 0.8}):Play()
 	wait(0.3)
 	
-	local self = setmetatable({}, RayfieldLibrary)
-	self.KeyMain = KeyMain
+	unlisted.key = KeyMain
+	unlisted.token = Settings.KeySettings.Key
 
 	return Window
 end
@@ -2368,6 +2368,11 @@ function RayfieldLibrary:LoadConfiguration()
 end
 
 function RayfieldLibrary:SetKey()
-    self.KeyMain.Input.InputBox.Text = self.Config.key
+	unlisted.key.Input.InputBox.Text = unlisted.token
 end
+
+function RayfieldLibrary:RemoveKey()
+	unlisted.key.Input.InputBox.Text = ""
+end
+
 return RayfieldLibrary
