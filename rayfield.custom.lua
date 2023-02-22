@@ -31,12 +31,10 @@ local window_data = {
 function lib.window(v)
     local self = setmetatable({}, lib)
 
-    for i, v in next, window_data do
-        pcall(function()
-            if v[i] then
-                window_data[i] = t[i]
-            end
-        end)
+    for i, v in next, v do
+        if window_data[i] then
+            window_data[i] = v
+        end
     end
     
     self.window = library:CreateWindow(window_data)
