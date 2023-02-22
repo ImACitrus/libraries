@@ -95,4 +95,4 @@ function Notify(text, formatTxt)
 
 end
 
-return Notify
+return { send = function(message, format) Notify(message, format) end, }
