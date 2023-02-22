@@ -33,16 +33,13 @@ function lib.window(v)
 
     for i, v in next, window_data do
         pcall(function()
-            if t[i] then
+            if v[i] then
                 window_data[i] = t[i]
             end
         end)
     end
     
     self.window = library:CreateWindow(window_data)
-    function self:Notify()
-        -->
-    end
     function self:DeleteUi()
         library:Destroy()
     end
